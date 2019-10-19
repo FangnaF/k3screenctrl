@@ -45,8 +45,9 @@ void print_basic_info(BASIC_INFO *info) {
            "  Product Name = %s\n"
            "  HW Version = %s\n"
            "  FW Version = %s\n"
+           "  NFW Version = %s\n"
            "  MAC Address = %s\n",
-           info, info->product_name, info->hw_version, info->fw_version,
+           info, info->product_name, info->hw_version, info->fw_version, info->nfw_version,
            info->mac_addr_base);
 }
 

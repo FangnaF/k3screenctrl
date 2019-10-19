@@ -1,5 +1,6 @@
 #!/bin/sh
-echo K4
-echo A3
-echo 02:00:00:00:00:00
-echo r6666
+echo K12345678
+echo Awertyuio
+echo r1234
+echo r4567
+echo 01:02:03:04:05:06
