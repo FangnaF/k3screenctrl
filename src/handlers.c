@@ -54,12 +54,15 @@ void handle_key_press(const unsigned char *payload, int len) {
         printf("KEY_MIDDLE_SHORT\n");
         break;
     case KEY_MIDDLE_LONG:
+        printf("KEY_MIDDLE_LONG\n");
         request_notify_event(EVENT_SLEEP);
         g_is_screen_on = 0;
         return;
     case KEY_LEFT_LONG:
+        printf("KEY_LEFT_LONG\n");
+        return;
     case KEY_RIGHT_LONG:
-        printf("KEY_x_LONG\n");
+        printf("KEY_RIGHT_LONG\n");
         return;
     default:
         syslog(LOG_WARNING, "unknown key code: %hhx\n", payload[0]);
