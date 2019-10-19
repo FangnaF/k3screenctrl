@@ -86,7 +86,7 @@ typedef enum _page {
     PAGE_HOSTS
 } PAGE;
 
-#define PAGE_MIN PAGE_UPGRADE
+#define PAGE_MIN PAGE_BASIC_INFO
 #define PAGE_MAX PAGE_HOSTS
 
 /* REQUEST_UPDATE_PORTS */
