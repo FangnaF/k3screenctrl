@@ -7,6 +7,7 @@
 #include "pages.h"
 #include "requests.h"
 #include "signals.h"
+#include "config.h"
 
 static MCU_VERSION g_mcu_version;
 void handle_mcu_version(const unsigned char *payload, int len) {
@@ -50,8 +51,12 @@ void handle_key_press(const unsigned char *payload, int len) {
         printf("KEY_RIGHT_SHORT\n");
         break;
     case KEY_MIDDLE_SHORT:
-        page_switch_to(PAGE_WAN);
-        printf("KEY_MIDDLE_SHORT\n");
+        if (CFG->home_page < PAGE_MIN || CFG->home_page > PAGE_MAX) {
+            syslog(LOG_WARNING, "invalid home page : %d\n", CFG->home_page);
+            return;
+        }
+        page_switch_to(CFG->home_page);
+        printf("KEY_MIDDLE_SHORT %d\n", CFG->home_page);
         break;
     case KEY_MIDDLE_LONG:
         printf("KEY_MIDDLE_LONG\n");

@@ -22,6 +22,8 @@ static void config_show_help() {
         "corresponding to current page and update content every SECS seconds\n"
         "\t-m, --screen-timeout <SECS>\tTurn off screen after this period of "
         "time if there isn't any user interaction\n"
+        "\t-o, --home-page <NUM>\tDefine as home page, the value is from %d to %d"
+        "This page is switched to when middle button is pressed\n"
         "\t-s, --host-script <PATH>\tUse this script to gather hosts "
         "info\n"
         "\t-w, --wifi-script <PATH>\tUse this script to gather WiFi "
@@ -47,6 +49,7 @@ void config_parse_cmdline(int argc, char *argv[]) {
         {"test", no_argument, NULL, 't'},
         {"update-interval", required_argument, NULL, 'd'},
         {"screen-timeout", required_argument, NULL, 'm'},
+        { "home-page", required_argument, NULL, 'o' },
         { "weather-script", required_argument, NULL, 'e' },
         {"host-script", required_argument, NULL, 's'},
         {"wifi-script", required_argument, NULL, 'w'},
@@ -54,7 +57,7 @@ void config_parse_cmdline(int argc, char *argv[]) {
         {"wan-script", required_argument, NULL, 'n'},
         {"basic-info-script", required_argument, NULL, 'i'},
         {0, 0, 0, 0}};
-    static const char *short_opts = "hfrtd:m:s:e:w:p:n:i:u:";
+    static const char *short_opts = "hfrtd:m:s:e:w:p:n:i:u:o:";
 
     int opt_index;
     signed char result;
@@ -75,6 +78,9 @@ void config_parse_cmdline(int argc, char *argv[]) {
             break;
         case 'd':
             g_config.update_interval = atoi(optarg);
+            break;
+        case 'o':
+            g_config.home_page = atoi(optarg);
             break;
         case 'm':
             g_config.screen_timeout = atoi(optarg);
@@ -112,6 +118,7 @@ void config_load_defaults() {
     g_config.foreground = DEFAULT_FOREGROUND;
     g_config.test_mode = DEFAULT_TEST_MODE;
     g_config.update_interval = DEFAULT_UPDATE_INTERVAL;
+    g_config.home_page = DEFAULT_HOME_PAGE;
     g_config.screen_timeout = DEFAULT_SCREEN_TIMEOUT;
     g_config.weather_script = strdup(DEFAULT_WEATHER_SCRIPT);
     g_config.host_script = strdup(DEFAULT_HOST_SCRIPT);

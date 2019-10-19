@@ -176,6 +176,14 @@ typedef struct _config {
      * Turn off screen after this time (seconds). 0 to disable.
      */
     int screen_timeout;
+
+    /**
+    * Goto this page when home button is pressed.
+    */
+    int home_page;
+#define DEFAULT_HOME_PAGE 4
+
+
 #define DEFAULT_SCREEN_TIMEOUT 10
 } CONFIG;
 
