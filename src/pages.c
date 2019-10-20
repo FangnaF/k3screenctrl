@@ -16,6 +16,8 @@ struct _host_info_single *get_hosts() {
 
 static int get_hosts_count() { return g_host_info_elements; }
 
+int page_get_index() { return g_current_page; }
+
 static void send_page_data(PAGE page) {
     switch (page) {
     case PAGE_BASIC_INFO:

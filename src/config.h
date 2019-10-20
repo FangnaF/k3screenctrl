@@ -144,6 +144,18 @@ typedef struct _config {
 #define DEFAULT_WEATHER_SCRIPT "/lib/k3screenctrl/weather.sh"
 
     /**
+    * This script will be called when left key is long pressed
+    */
+    char *left_long_script;
+#define DEFAULT_LEFT_LONG_SCRIPT "/lib/k3screenctrl/left_long.sh"
+
+    /**
+    * This script will be called when right key is long pressed
+    */
+    char *right_long_script;
+#define DEFAULT_RIGHT_LONG_SCRIPT "/lib/k3screenctrl/right_long.sh"
+
+    /**
      * Shall we skip GPIO setup (do not reset the microcontroller)?
      * Useful when debugging.
      */

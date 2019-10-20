@@ -22,7 +22,7 @@ static void config_show_help() {
         "corresponding to current page and update content every SECS seconds\n"
         "\t-m, --screen-timeout <SECS>\tTurn off screen after this period of "
         "time if there isn't any user interaction\n"
-        "\t-o, --home-page <NUM>\tDefine as home page, the value is from %d to %d"
+        "\t-o, --home-page <NUM>\t\tDefine as home page, the value is from %d to %d"
         "This page is switched to when middle button is pressed\n"
         "\t-s, --host-script <PATH>\tUse this script to gather hosts "
         "info\n"
@@ -33,10 +33,12 @@ static void config_show_help() {
         "\t-n, --wan-script <PATH>\t\tUse this script to gather WAN speed "
         "and internet connection info\n"
         "\t-i, --basic-info-script <PATH>\tUse this script to gather "
-        "\t-e, --weather-script <PATH>\tUse this script to gather "
         "weather info\n"
+        "\t-e, --weather-script <PATH>\tUse this script to gather "
         "basic info\n"
-        "\nThe defaults are /lib/k3screenctrl/{host,wifi,port,wan,basic}.sh "
+        "\t-l, --left-long-script <PATH>\tThis script is called on long press of left key\n"
+        "\t-y, --right-long-script <PATH>\tThis script is called on long press of right key\n"
+        "\nThe defaults are /lib/k3screenctrl/{host,wifi,port,wan,basic,weather,left_long,right_long}.sh "
         "with an interval of 2 seconds\n");
     exit(1);
 }
@@ -56,8 +58,10 @@ void config_parse_cmdline(int argc, char *argv[]) {
         {"port-script", required_argument, NULL, 'p'},
         {"wan-script", required_argument, NULL, 'n'},
         {"basic-info-script", required_argument, NULL, 'i'},
+        {"left-long-script", required_argument, NULL, 'l' },
+        {"right-long-script", required_argument, NULL, 'y' },
         {0, 0, 0, 0}};
-    static const char *short_opts = "hfrtd:m:s:e:w:p:n:i:u:o:";
+    static const char *short_opts = "hfrtd:m:s:e:w:p:n:i:u:o:l:y:";
 
     int opt_index;
     signed char result;
@@ -109,6 +113,14 @@ void config_parse_cmdline(int argc, char *argv[]) {
             free(g_config.basic_info_script);
             g_config.basic_info_script = strdup(optarg);
             break;
+        case 'l':
+            free(g_config.left_long_script);
+            g_config.left_long_script = strdup(optarg);
+            break;
+        case 'y':
+            free(g_config.right_long_script);
+            g_config.right_long_script = strdup(optarg);
+            break;
         }
     }
 }
@@ -126,6 +138,8 @@ void config_load_defaults() {
     g_config.port_script = strdup(DEFAULT_PORT_SCRIPT);
     g_config.wan_script = strdup(DEFAULT_WAN_SCRIPT);
     g_config.basic_info_script = strdup(DEFAULT_BASIC_INFO_SCRIPT);
+    g_config.left_long_script = strdup(DEFAULT_LEFT_LONG_SCRIPT);
+    g_config.right_long_script = strdup(DEFAULT_RIGHT_LONG_SCRIPT);
 }
 
 void config_free() {
@@ -135,6 +149,8 @@ void config_free() {
     free(g_config.wan_script);
     free(g_config.basic_info_script);
     free(g_config.weather_script);
+    free(g_config.left_long_script);
+    free(g_config.right_long_script);
 }
 
 CONFIG *config_get() { return &g_config; }

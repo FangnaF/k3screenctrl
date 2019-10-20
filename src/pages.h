@@ -3,6 +3,7 @@
 
 #include "mcu_proto.h"
 
+int page_get_index();
 void page_send_initial_data();
 void page_update();
 void page_switch_next();
